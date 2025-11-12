@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import "./globals.css";
 import { Cinzel } from "next/font/google";
 
 //font for words
