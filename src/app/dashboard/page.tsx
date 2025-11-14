@@ -26,6 +26,9 @@ export default async function DashboardPage() {
         <Link href="/" className="btn btn-neutral btn-outline" aria-label="Go home">
           <span>Home</span>
         </Link>
+        <Link href="/profile" className="btn btn-neutral btn-outline" aria-label="Go to profile">
+          <span>Profile</span>
+        </Link>
         <form action={logout}>
           <button type="submit" className="btn btn-neutral btn-outline">
             <span>Log out</span>
