@@ -8,6 +8,13 @@ vi.mock("@/components/back-to-dashboard-link", () => ({
   default: () => <div data-testid="back-to-dashboard-link">Back to Dashboard</div>,
 }));
 
+// Mock next/font/google
+vi.mock("next/font/google", () => ({
+  Cinzel: () => ({
+    className: "mocked-cinzel-font",
+  }),
+}));
+
 // Mock react-youtube
 vi.mock("react-youtube", () => ({
   default: ({ videoId }: { videoId: string }) => (

@@ -27,7 +27,7 @@ export default function LandingPage() {
         </h1>
 
         {/*all dark grey logo*/}
-        <div className="relative w-[auto] h-[auto]">
+        <div className="relative w-auto h-auto">
           <Image
             src="/codequestAllDark.png"
             alt="CodeQuest Logo"
