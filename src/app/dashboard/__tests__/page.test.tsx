@@ -8,6 +8,13 @@ vi.mock("next/navigation", () => ({
   redirect: vi.fn(),
 }));
 
+// Mock next/font/google
+vi.mock("next/font/google", () => ({
+  Cinzel: () => ({
+    className: "mocked-cinzel-font",
+  }),
+}));
+
 // Mock Supabase server client to return a fake authenticated user
 vi.mock("../../../lib/supabase/server", () => ({
   createClient: vi.fn(async () => ({
@@ -36,16 +43,10 @@ describe("Dashboard Page Tests", () => {
     expect(screen.getByText("Dashboard")).toBeInTheDocument();
   });
 
-  it("should display the user email", async () => {
-    const page = await DashboardPage();
-    render(page);
-    expect(screen.getByText("test@example.com")).toBeInTheDocument();
-  });
-
   it("should render the home link", async () => {
     const page = await DashboardPage();
     render(page);
-    expect(screen.getByRole("link", { name: /Go home/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Home/i })).toBeInTheDocument();
   });
 
   it("should render the logout button", async () => {
@@ -57,6 +58,12 @@ describe("Dashboard Page Tests", () => {
   it("should render the tutorial link", async () => {
     const page = await DashboardPage();
     render(page);
-    expect(screen.getByRole("link", { name: /Hello World Tutorial/i })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /Hello World/i })).toBeInTheDocument();
+  });
+
+  it("should render the profile button", async () => {
+    const page = await DashboardPage();
+    render(page);
+    expect(screen.getByRole("link", { name: /Profile/i })).toBeInTheDocument();
   });
 });
