@@ -15,9 +15,19 @@ export default function TutorialQuiz() {
       {/* Question Card */}
       <div className="space-y-6">
         <div className="bg-amber-200/50 p-6 rounded-lg border border-amber-800/30">
+          {/* Question */}
           <h3 className="text-xl font-semibold text-amber-950 mb-4">
             {currentQuestion.questionText}
           </h3>
+
+          {/* Choices */}
+          <div className="grid gap-3">
+            {currentQuestion.options.map((option) => (
+              <button key={option} className="w-full text-left bg-white p-4 ">
+                {option}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
