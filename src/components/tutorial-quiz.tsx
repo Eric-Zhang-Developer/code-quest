@@ -1,22 +1,27 @@
 import { Cinzel } from "next/font/google";
 import { useState } from "react";
-import { helloWorldQuiz } from "@/data/quizzes/01-hello-world";
+import { QuizData } from "@/lib/types/types";
 
 const cinzel = Cinzel({ subsets: ["latin"], weight: ["700"] });
 
-export default function TutorialQuiz() {
+type QuizProps = {
+  quizData: QuizData;
+};
+
+export default function Quiz({ quizData }: QuizProps) {
   const [questionNumber, setQuestionNumber] = useState<number>(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [score, setScore] = useState(0);
   const [showResults, setShowResults] = useState(false);
 
-  const currentQuestion = helloWorldQuiz.questions[questionNumber];
+  const currentQuestion = quizData.questions[questionNumber];
 
   const handleOptionClick = (option: string) => {
     if (selectedOption) return;
     setSelectedOption(option);
 
+    // 1. Check Correctness
     const correct = option === currentQuestion.correctAnswer;
     setIsCorrect(correct);
 
@@ -29,7 +34,7 @@ export default function TutorialQuiz() {
     setTimeout(() => {
       const nextIndex = questionNumber + 1;
 
-      if (nextIndex < helloWorldQuiz.questions.length) {
+      if (nextIndex < quizData.questions.length) {
         setQuestionNumber(nextIndex);
         setSelectedOption(null);
         setIsCorrect(null);
@@ -50,16 +55,16 @@ export default function TutorialQuiz() {
   return (
     <div className="mt-12 p-8 border-2 border-amber-800/50 rounded-xl bg-amber-50/50 shadow-inner shadow-amber-900/20">
       <h2 className={`text-3xl font-bold text-center mb-6 text-amber-900 ${cinzel.className}`}>
-        {helloWorldQuiz.title}
+        {quizData.title}
       </h2>
 
-      {/* 5. Conditional Rendering: Results vs Question */}
       {showResults ? (
         <div className="text-center space-y-6 animate-fade-in">
+          {/* Results */}
           <p className="text-2xl text-amber-950">Quest Complete!</p>
           <p className="text-xl">
             You scored <span className="font-bold">{score}</span> out of{" "}
-            <span className="font-bold">{helloWorldQuiz.questions.length}</span>
+            <span className="font-bold">{quizData.questions.length}</span>
           </p>
           <button
             onClick={resetQuiz}
@@ -73,7 +78,7 @@ export default function TutorialQuiz() {
           {/* Score Tracker Display */}
           <div className="flex justify-between text-amber-800 font-serif italic">
             <span>
-              Question {questionNumber + 1} of {helloWorldQuiz.questions.length}
+              Question {questionNumber + 1} of {quizData.questions.length}
             </span>
             <span>Score: {score}</span>
           </div>

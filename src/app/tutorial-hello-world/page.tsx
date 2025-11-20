@@ -2,8 +2,10 @@
 
 import BackToDashBoardLink from "@/components/back-to-dashboard-link";
 import YouTube from "react-youtube";
-import TutorialQuiz from "@/components/tutorial-quiz";
+import Quiz from "@/components/tutorial-quiz";
+
 import { Cinzel } from "next/font/google";
+import { helloWorldQuiz } from "@/data/quizzes/01-hello-world";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -144,7 +146,7 @@ export default function TutorialHelloWorld() {
 
         <YouTube videoId="hp4pYFASTrc"></YouTube>
 
-        <TutorialQuiz></TutorialQuiz>
+        <Quiz quizData={helloWorldQuiz}></Quiz>
       </article>
     </div>
   );
