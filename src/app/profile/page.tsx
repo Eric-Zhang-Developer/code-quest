@@ -1,7 +1,9 @@
-import { Shield, Star, Trophy, Swords, Pencil } from "lucide-react";
+import { Shield, Star, Trophy, Swords } from "lucide-react";
 import { createClient as createServerClient } from "../../lib/supabase/server";
 import { redirect } from "next/navigation";
 import { Cinzel } from "next/font/google";
+import EditClass from "../../components/edit-class";
+import BackToDashBoardLink from "../../components/back-to-dashboard-link";
 
 //font for words
 const cinzel = Cinzel({
@@ -18,6 +20,24 @@ export default async function ProfilePage() {
   if (!user) {
     redirect("/login");
   }
+
+  // Fetch user profile from database
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('class')
+    .eq('id', user.id)
+    .maybeSingle(); // Use maybeSingle() instead of single() to handle case where profile doesn't exist
+
+  // Map enum values to display names
+  const classDisplayMap: Record<string, string> = {
+    'warrior': 'Python Warrior',
+    'mage': 'Java Mage',
+    'rogue': 'C++ Rogue',
+  };
+
+  // Get class from database, default to null (will show as empty or default)
+  const userClassEnum = profile?.class as string | null;
+  const userClass = userClassEnum ? classDisplayMap[userClassEnum] || userClassEnum : null;
 
   const username = user.email?.split('@')[0] || 'User';
   
@@ -48,6 +68,9 @@ export default async function ProfilePage() {
       
       {/* Content */}
       <div className={`relative ${cinzel.className}`} style={{ zIndex: 1 }}>
+        {/* Back Button */}
+        <BackToDashBoardLink />
+        
         {/* Header */}
         <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-2" style={{ color: "#be9661" }}>
@@ -197,19 +220,6 @@ export default async function ProfilePage() {
               border: "0.5px solid rgba(190, 150, 97, 0.3)",
             }}
           >
-            {/* Edit Profile Button */}
-            <button
-              className="absolute top-6 right-6 px-4 py-2 rounded-lg flex items-center gap-2 border"
-              style={{
-                borderColor: "rgba(190, 150, 97, 0.3)",
-                color: "#E0E0E0",
-                backgroundColor: "transparent",
-              }}
-            >
-              <Pencil size={16} style={{ color: "#be9661" }} />
-              <span>Edit Profile</span>
-            </button>
-
             {/* Username */}
             <h2 className="text-3xl font-bold mb-1" style={{ color: "#be9661" }}>
               {username}
@@ -236,7 +246,7 @@ export default async function ProfilePage() {
                   Level
                 </span>
                 <span className="text-2xl font-bold" style={{ color: "#be9661" }}>
-                  42
+                  0
                 </span>
               </div>
 
@@ -255,7 +265,7 @@ export default async function ProfilePage() {
                   XP
                 </span>
                 <span className="text-2xl font-bold" style={{ color: "#be9661" }}>
-                  12,847
+                  0
                 </span>
               </div>
 
@@ -274,32 +284,14 @@ export default async function ProfilePage() {
                   Quests
                 </span>
                 <span className="text-2xl font-bold" style={{ color: "#be9661" }}>
-                  127
+                  0/8
                 </span>
               </div>
             </div>
 
             {/* Detailed Info */}
             {/* Class */}
-            <div className="flex items-start gap-3 mb-4 relative">
-              <div
-                className="absolute left-0 top-0 bottom-0 rounded"
-                style={{ 
-                  backgroundColor: "#be9661",
-                  width: "4px",
-                  marginTop: "-2px",
-                  marginBottom: "-2px",
-                }}
-              />
-              <div className="pl-3">
-                <span className="text-sm block mb-1" style={{ color: "#A0A0A0" }}>
-                  Class
-                </span>
-                <span className="text-base block" style={{ color: "#E0E0E0" }}>
-                  Python Warrior
-                </span>
-              </div>
-            </div>
+            <EditClass currentClass={userClass || 'Not set'} currentClassEnum={userClassEnum} userId={user.id} />
 
             {/* Guild */}
             <div className="flex items-start gap-3 mb-4 relative">
@@ -370,4 +362,3 @@ export default async function ProfilePage() {
     </main>
   );
 }
-
