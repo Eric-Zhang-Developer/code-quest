@@ -76,12 +76,21 @@ export default async function DashboardPage() {
 
       {/* tutorials */}
       <div className="absolute bottom-16 left-1/2 -translate-x-1/2">
-        <Link
-          href="tutorial-hello-world"
-          className={isHelloWorldComplete ? greenButtonClass : greyButtonClass}
-        >
-          Hello World
-        </Link>
+        <div className="flex flex-col gap-16">
+          <Link
+            href="tutorial-variables"
+            className={isVariablesComplete ? greenButtonClass : greyButtonClass}
+          >
+            Variables
+          </Link>
+
+          <Link
+            href="tutorial-hello-world"
+            className={isHelloWorldComplete ? greenButtonClass : greyButtonClass}
+          >
+            Hello World
+          </Link>
+        </div>
       </div>
     </main>
   );
