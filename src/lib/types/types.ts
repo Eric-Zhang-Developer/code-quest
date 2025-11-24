@@ -9,3 +9,10 @@ export type QuizData = {
   id: string;
   questions: Question[];
 };
+
+export type Profile = {
+  id: string;
+  class: string;
+  created_at: string;
+  updated_at: string;
+};
