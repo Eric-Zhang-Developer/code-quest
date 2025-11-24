@@ -2,6 +2,7 @@ import { QuizData } from "@/lib/types/types";
 
 export const helloWorldQuiz: QuizData = {
   title: "The Oracle's First Greeting",
+  id: "hello-world",
   questions: [
     {
       questionText: "What is the primary purpose of a 'Hello World' program?",
