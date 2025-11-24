@@ -1,6 +1,9 @@
+"use client";
+
 import { Cinzel } from "next/font/google";
 import { useState } from "react";
 import { QuizData } from "@/lib/types/types";
+import { createClient } from "@/lib/supabase/client";
 
 const cinzel = Cinzel({ subsets: ["latin"], weight: ["700"] });
 
@@ -40,6 +43,7 @@ export default function Quiz({ quizData }: QuizProps) {
         setIsCorrect(null);
       } else {
         setShowResults(true);
+        updateUserQuizProgress();
       }
     }, 2000); // 2 second delay so they can read the feedback
   };
@@ -50,6 +54,32 @@ export default function Quiz({ quizData }: QuizProps) {
     setShowResults(false);
     setSelectedOption(null);
     setIsCorrect(null);
+  };
+
+  // Updates database that user completed quiz, no score to keep things simple
+  // TODO: Update the insert with a upsert, and keep track of the user's most recent score on quiz
+  // Also another neat feature would be loading the quiz result instead of resetting the quiz each time
+  const updateUserQuizProgress = async () => {
+    const supabase = createClient();
+
+    // Get user
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      console.error("User not logged in, cannot save progress.");
+      return;
+    }
+
+    const { error: insertError } = await supabase.from("user_quiz_progress").insert({
+      user_id: user.id,
+      quiz_id: quizData.id,
+    });
+
+    if (insertError) {
+      console.error(`Supabase insertion error: ${insertError}`);
+    }
   };
 
   return (

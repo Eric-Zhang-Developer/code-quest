@@ -6,5 +6,6 @@ export type Question = {
 
 export type QuizData = {
   title: string;
+  id: string;
   questions: Question[];
 };
