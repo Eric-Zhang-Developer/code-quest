@@ -43,7 +43,7 @@ export default function AuthPage() {
       className="min-h-dvh flex items-center justify-center bg-cover bg-center bg-no-repeat p-6 font-cinzel text-white"
       style={{ backgroundImage: "url('/geminiblurred.png')" }}
     >
-      <div className="w-full max-w-md bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.25)] p-8 transition-all">
+      <div className="w-full max-w-md bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.25)] p-8 transition-all flex flex-col">
         <h1 className="text-4xl text-center mb-6 font-bold drop-shadow-lg">
           {mode === "login" ? "Welcome Back" : "Create Your Account"}
         </h1>
@@ -91,6 +91,26 @@ export default function AuthPage() {
             {busy ? "Loading..." : mode === "login" ? "Log In" : "Create Account"}
           </button>
         </form>
+
+        <section className="flex flex-col gap-4 text-center">
+          <div className="mt-5">
+            <p className="text-center">Or continue with</p>
+          </div>
+
+          {/* Google */}
+          <div>
+            <button className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition">
+              Google
+            </button>
+          </div>
+
+          {/* Github */}
+          <div>
+            <button className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition">
+              Github
+            </button>
+          </div>
+        </section>
 
         <div className="text-center mt-6">
           <button
