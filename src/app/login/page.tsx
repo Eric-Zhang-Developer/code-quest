@@ -84,7 +84,7 @@ export default function AuthPage() {
           <button
             type="submit"
             disabled={busy}
-            className={`w-full py-2 rounded-md font-semibold mt-4 transition ${
+            className={`w-full py-2 rounded-md font-semibold mt-4 transition hover:cursor-pointer ${
               busy
                 ? "bg-indigo-700/60 cursor-not-allowed"
                 : "bg-indigo-600 hover:bg-indigo-500 shadow-[0_0_20px_rgba(140,120,255,0.7)]"
@@ -102,7 +102,7 @@ export default function AuthPage() {
           {/* Google */}
           <div className="">
             <button
-              className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition hover:cursor-pointer"
+              className="w-full p-2 rounded-md bg-transparent border border-white/40 hover:border-indigo-400 hover:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition hover:cursor-pointer"
               onClick={() => handleOAuthLogin("google")}
             >
               <div className="flex flex-row items-center justify-center gap-2 font-semibold">
@@ -115,7 +115,7 @@ export default function AuthPage() {
           {/* Github */}
           <div>
             <button
-              className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition"
+              className="w-full p-2 rounded-md bg-transparent border border-white/40 hover:border-indigo-400 hover:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition hover:cursor-pointer"
               onClick={() => handleOAuthLogin("github")}
             >
               <div className="flex flex-row items-center justify-center gap-2 font-semibold">
@@ -130,7 +130,7 @@ export default function AuthPage() {
           <button
             type="button"
             onClick={() => setMode(mode === "login" ? "signup" : "login")}
-            className="text-sm text-indigo-300 hover:text-indigo-200 transition mt-2 underline"
+            className="text-sm text-indigo-300 hover:text-indigo-200 transition mt-2 underline hover: cursor-pointer"
           >
             {mode === "login" ? "Join the Realm" : "Return to Login"}
           </button>
