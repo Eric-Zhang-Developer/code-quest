@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase/client";
 import handleOAuthLogin from "@/lib/supabase/handle-oauth-login";
+import { FaGoogle, FaGithub } from "react-icons/fa";
 
 export default function AuthPage() {
   const router = useRouter();
@@ -99,12 +100,15 @@ export default function AuthPage() {
           </div>
 
           {/* Google */}
-          <div>
+          <div className="">
             <button
-              className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition"
+              className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition hover:cursor-pointer"
               onClick={() => handleOAuthLogin("google")}
             >
-              Google
+              <div className="flex flex-row items-center justify-center gap-2 font-semibold">
+                <FaGoogle></FaGoogle>
+                <span>Google</span>
+              </div>
             </button>
           </div>
 
@@ -114,7 +118,10 @@ export default function AuthPage() {
               className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition"
               onClick={() => handleOAuthLogin("github")}
             >
-              Github
+              <div className="flex flex-row items-center justify-center gap-2 font-semibold">
+                <FaGithub></FaGithub>
+                <span>Github</span>
+              </div>
             </button>
           </div>
         </section>
