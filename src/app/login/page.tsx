@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase/client";
+import handleOAuthLogin from "@/lib/supabase/handle-oauth-login";
+import { FaGoogle, FaGithub } from "react-icons/fa";
 
 export default function AuthPage() {
   const router = useRouter();
@@ -43,7 +45,7 @@ export default function AuthPage() {
       className="min-h-dvh flex items-center justify-center bg-cover bg-center bg-no-repeat p-6 font-cinzel text-white"
       style={{ backgroundImage: "url('/geminiblurred.png')" }}
     >
-      <div className="w-full max-w-md bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.25)] p-8 transition-all">
+      <div className="w-full max-w-md bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-[0_0_30px_rgba(255,255,255,0.25)] p-8 transition-all flex flex-col">
         <h1 className="text-4xl text-center mb-6 font-bold drop-shadow-lg">
           {mode === "login" ? "Welcome Back" : "Create Your Account"}
         </h1>
@@ -82,7 +84,7 @@ export default function AuthPage() {
           <button
             type="submit"
             disabled={busy}
-            className={`w-full py-2 rounded-md font-semibold mt-4 transition ${
+            className={`w-full py-2 rounded-md font-semibold mt-4 transition hover:cursor-pointer ${
               busy
                 ? "bg-indigo-700/60 cursor-not-allowed"
                 : "bg-indigo-600 hover:bg-indigo-500 shadow-[0_0_20px_rgba(140,120,255,0.7)]"
@@ -92,11 +94,43 @@ export default function AuthPage() {
           </button>
         </form>
 
+        <section className="flex flex-col gap-4 text-center">
+          <div className="mt-5">
+            <p className="text-center">Or continue with</p>
+          </div>
+
+          {/* Google */}
+          <div className="">
+            <button
+              className="w-full p-2 rounded-md bg-transparent border border-white/40 hover:border-indigo-400 hover:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition hover:cursor-pointer"
+              onClick={() => handleOAuthLogin("google")}
+            >
+              <div className="flex flex-row items-center justify-center gap-2 font-semibold">
+                <FaGoogle></FaGoogle>
+                <span>Google</span>
+              </div>
+            </button>
+          </div>
+
+          {/* Github */}
+          <div>
+            <button
+              className="w-full p-2 rounded-md bg-transparent border border-white/40 hover:border-indigo-400 hover:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition hover:cursor-pointer"
+              onClick={() => handleOAuthLogin("github")}
+            >
+              <div className="flex flex-row items-center justify-center gap-2 font-semibold">
+                <FaGithub></FaGithub>
+                <span>Github</span>
+              </div>
+            </button>
+          </div>
+        </section>
+
         <div className="text-center mt-6">
           <button
             type="button"
             onClick={() => setMode(mode === "login" ? "signup" : "login")}
-            className="text-sm text-indigo-300 hover:text-indigo-200 transition mt-2 underline"
+            className="text-sm text-indigo-300 hover:text-indigo-200 transition mt-2 underline hover: cursor-pointer"
           >
             {mode === "login" ? "Join the Realm" : "Return to Login"}
           </button>
