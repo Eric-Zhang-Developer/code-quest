@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase/client";
+import handleOAuthLogin from "@/lib/supabase/handle-oauth-login";
 
 export default function AuthPage() {
   const router = useRouter();
@@ -99,14 +100,20 @@ export default function AuthPage() {
 
           {/* Google */}
           <div>
-            <button className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition">
+            <button
+              className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition"
+              onClick={() => handleOAuthLogin("google")}
+            >
               Google
             </button>
           </div>
 
           {/* Github */}
           <div>
-            <button className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition">
+            <button
+              className="w-full p-2 rounded-md bg-transparent border border-white/40 focus:border-indigo-400 focus:shadow-[0_0_12px_rgba(140,120,255,0.8)] outline-none transition"
+              onClick={() => handleOAuthLogin("github")}
+            >
               Github
             </button>
           </div>
