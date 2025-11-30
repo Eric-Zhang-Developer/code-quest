@@ -43,7 +43,7 @@ export default function TutorialVariables() {
 
         <p className="text-xl italic text-amber-900">
           Welcome back, brave coder! Having successfully performed the first incantation,{" "}
-          <strong className="font-extrabold text-amber-950">"Hello World"</strong>, you proved you
+          <strong className="font-extrabold text-amber-950">&quot;Hello World&quot;</strong>, you proved you
           can command the machine. Now your journey deepens. To build living, breathing digital
           worlds, you must learn to store and change the information that powers them. This is the
           Variable Quest.
@@ -75,13 +75,13 @@ export default function TutorialVariables() {
               .
             </li>
             <li>
-              <strong className="font-semibold text-amber-950">The Value:</strong> What’s stored
-              inside—such as <em>100</em>, <em>"Alex"</em>, or <em>15</em>.
+              <strong className="font-semibold text-amber-950">The Value:</strong> What&apos;s stored
+              inside—such as <em>100</em>, <em>&quot;Alex&quot;</em>, or <em>15</em>.
             </li>
           </ul>
 
           <p className="text-lg">
-            Variables can change over time as your program runs, which is why they're called
+            Variables can change over time as your program runs, which is why they&apos;re called
             <em> variables</em>.
           </p>
         </section>

@@ -48,7 +48,7 @@ export default function TutorialUserInput() {
         </h1>
 
         <p className="text-xl italic text-amber-900">
-          Brave coder! You've mastered the greeting (<strong>Hello World</strong>) and learned to
+          Brave coder! You&apos;ve mastered the greeting (<strong>Hello World</strong>) and learned to
           command the power of <strong>Variables</strong>. But a true digital fortress does not only
           speak… it listens.
         </p>
@@ -121,9 +121,9 @@ Character_Name = input("What name shall be etched onto your armor?")`}</code>
           </pre>
 
           <p className="text-lg">
-            If the user types <strong>"Kaelen"</strong> and presses Enter, the value{" "}
+            If the user types <strong>&quot;Kaelen&quot;</strong> and presses Enter, the value{" "}
             <code className="font-mono bg-amber-200 px-1 rounded border border-amber-800">
-              "Kaelen"
+              &quot;Kaelen&quot;
             </code>{" "}
             is instantly sealed into the variable <strong>Character_Name</strong>.
           </p>

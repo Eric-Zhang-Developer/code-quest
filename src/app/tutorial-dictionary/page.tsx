@@ -71,10 +71,10 @@ export default function TutorialDictionary() {
 
           <ul className="list-disc list-inside space-y-2 text-lg pl-4">
             <li>
-              <strong>Key:</strong> the label (like "health", "name", "attackPower")
+              <strong>Key:</strong> the label (like &quot;health&quot;, &quot;name&quot;, &quot;attackPower&quot;)
             </li>
             <li>
-              <strong>Value:</strong> the data tied to that label (like 100, "Astra", 25)
+              <strong>Value:</strong> the data tied to that label (like 100, &quot;Astra&quot;, 25)
             </li>
             <li>
               You use the key to get the value, just like looking up a word in a real dictionary.
@@ -91,7 +91,7 @@ export default function TutorialDictionary() {
           </h2>
           <ul className="list-disc list-inside space-y-3 text-lg pl-4">
             <li>
-              <strong className="font-semibold text-amber-950">Clarity:</strong> "health" is more readable than stats[0].
+              <strong className="font-semibold text-amber-950">Clarity:</strong> &quot;health&quot; is more readable than stats[0].
             </li>
             <li>
               <strong className="font-semibold text-amber-950">Flexibility:</strong> You can add and remove keys without worrying about numeric positions.

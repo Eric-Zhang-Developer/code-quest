@@ -67,7 +67,7 @@ export default function TutorialConditionals() {
             A conditional is a question about the world that leads to different outcomes. It looks like:
           </p>
           <p className="text-lg font-mono bg-amber-200 px-2 py-1 rounded border border-amber-800">
-            "If this condition is true, do A; otherwise, do B."
+            &quot;If this condition is true, do A; otherwise, do B.&quot;
           </p>
           <p className="text-lg">
             The condition is usually a comparison—like checking if <strong>health ≤ 0</strong> 
@@ -87,7 +87,7 @@ export default function TutorialConditionals() {
               <strong className="font-semibold text-amber-950">Logic:</strong> Real programs rarely do the same thing every time. They react.
             </li>
             <li>
-              <strong className="font-semibold text-amber-950">Safety:</strong> You can prevent bad actions, e.g., "Only open the gate if the password is correct."
+              <strong className="font-semibold text-amber-950">Safety:</strong> You can prevent bad actions, e.g., &quot;Only open the gate if the password is correct.&quot;
             </li>
             <li>
               <strong className="font-semibold text-amber-950">Complexity:</strong> By chaining conditions, you can describe rich behavior without writing separate programs.
