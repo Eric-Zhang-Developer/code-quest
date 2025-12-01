@@ -86,7 +86,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Tutorials */}
-      <div className="absolute bottom-16 left-1/2 -translate-x-1/2">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/70 backdrop-blur-md rounded-2xl p-8 border border-white/10">
         <div className="grid grid-cols-[1fr_auto_1fr] gap-4 items-center w-[500px]">
           <Link href="tutorial-hello-world" className={getButtonClass(isHelloWorldComplete)}>
             Hello World
