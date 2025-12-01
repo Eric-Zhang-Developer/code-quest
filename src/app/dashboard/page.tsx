@@ -3,7 +3,7 @@ import Link from "next/link";
 import { createClient as createServerClient } from "../../lib/supabase/server";
 import { Cinzel } from "next/font/google";
 import checkUserCompletedQuizzes from "@/lib/checkUserCompletedQuizzes";
-import { ArrowLeft, ArrowDown, ArrowRight } from "lucide-react";
+import { ArrowBigLeft, ArrowBigDown, ArrowBigRight } from "lucide-react";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -51,8 +51,9 @@ export default async function DashboardPage() {
   const greenButtonClass =
     "btn border-2 border-emerald-400 text-emerald-400 bg-emerald-900/60 backdrop-blur-sm hover:bg-emerald-900/50 hover:border-emerald-200 hover:text-emerald-200 shadow-lg shadow-emerald-400/70 transition duration-300 ease-in-out";
 
-  // helper
+  // helpers
   const getButtonClass = (complete: boolean) => (complete ? greenButtonClass : greyButtonClass);
+  const getArrowColor = (complete: boolean) => (complete ? "text-emerald-400" : "text-gray-400");
 
   return (
     <main
@@ -88,58 +89,63 @@ export default async function DashboardPage() {
       {/* Tutorials */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/70 backdrop-blur-md rounded-2xl p-8 border border-white/10">
         <div className="grid grid-cols-[1fr_auto_1fr] gap-4 items-center w-[500px]">
+          {/* Row 1: Hello World → Variables */}
           <Link href="tutorial-hello-world" className={getButtonClass(isHelloWorldComplete)}>
             Hello World
           </Link>
-          <ArrowRight className="text-gray-400" size={24} />
+          <ArrowBigRight className={getArrowColor(isVariablesComplete)} size={28} />
           <Link href="tutorial-variables" className={getButtonClass(isVariablesComplete)}>
             Variables
           </Link>
 
           <div className="col-span-3 flex justify-end pr-12">
-            <ArrowDown className="text-gray-400" size={24} />
+            <ArrowBigDown className={getArrowColor(isUserInputComplete)} size={28} />
           </div>
 
+          {/* Row 2: Conditionals ← User Input */}
           <Link href="tutorial-conditionals" className={getButtonClass(isConditionalsComplete)}>
             Conditionals
           </Link>
-          <ArrowLeft className="text-gray-400" size={24} />
+          <ArrowBigLeft className={getArrowColor(isConditionalsComplete)} size={28} />
           <Link href="tutorial-user-input" className={getButtonClass(isUserInputComplete)}>
             User Input
           </Link>
 
           <div className="col-span-3 flex justify-start pl-12">
-            <ArrowDown className="text-gray-400" size={24} />
+            <ArrowBigDown className={getArrowColor(isLoopsComplete)} size={28} />
           </div>
 
+          {/* Row 3: Loops → Math */}
           <Link href="tutorial-loops" className={getButtonClass(isLoopsComplete)}>
             Loops
           </Link>
-          <ArrowRight className="text-gray-400" size={24} />
+          <ArrowBigRight className={getArrowColor(isMathComplete)} size={28} />
           <Link href="tutorial-math" className={getButtonClass(isMathComplete)}>
             Math
           </Link>
 
           <div className="col-span-3 flex justify-end pr-12">
-            <ArrowDown className="text-gray-400" size={24} />
+            <ArrowBigDown className={getArrowColor(isFunctionsComplete)} size={28} />
           </div>
 
+          {/* Row 4: Lists & Arrays ← Functions */}
           <Link href="tutorial-lists-arrays" className={getButtonClass(isListsArraysComplete)}>
             Lists & Arrays
           </Link>
-          <ArrowLeft className="text-gray-400" size={24} />
+          <ArrowBigLeft className={getArrowColor(isListsArraysComplete)} size={28} />
           <Link href="tutorial-functions" className={getButtonClass(isFunctionsComplete)}>
             Functions
           </Link>
 
           <div className="col-span-3 flex justify-start pl-12">
-            <ArrowDown className="text-gray-400" size={24} />
+            <ArrowBigDown className={getArrowColor(isDictionaryComplete)} size={28} />
           </div>
 
+          {/* Row 5: Dictionary → Recursion */}
           <Link href="tutorial-dictionary" className={getButtonClass(isDictionaryComplete)}>
             Dictionary
           </Link>
-          <ArrowRight className="text-gray-400" size={24} />
+          <ArrowBigRight className={getArrowColor(isRecursionComplete)} size={28} />
           <Link href="tutorial-recursion" className={getButtonClass(isRecursionComplete)}>
             Recursion
           </Link>
