@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { createClient as createServerClient } from "../../lib/supabase/server";
 import { Cinzel } from "next/font/google";
-import checkUserCompletedQuizzes from "@/lib/checkUserCompletedQuizzes";
 import { ArrowBigLeft, ArrowBigDown, ArrowBigRight } from "lucide-react";
 
 const cinzel = Cinzel({
@@ -17,6 +17,36 @@ async function logout() {
   redirect("/");
 }
 
+async function resetQuestProgress() {
+  "use server";
+  const supabase = await createServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return;
+  }
+
+  // Delete all quest completions for this user
+  // The trigger will automatically update quests_completed count to 0
+  const { error: deleteError } = await supabase
+    .from("quest_completions")
+    .delete()
+    .eq("user_id", user.id);
+
+  if (deleteError) {
+    console.error("Error deleting quest completions:", deleteError);
+  }
+
+  // Revalidate the dashboard and profile pages to refresh data
+  revalidatePath("/dashboard");
+  revalidatePath("/profile");
+
+  // Redirect to refresh the page
+  redirect("/dashboard");
+}
+
 export default async function DashboardPage() {
   const supabase = await createServerClient();
   const {
@@ -25,19 +55,30 @@ export default async function DashboardPage() {
 
   if (!user) redirect("/login");
 
-  // Completed quizzes
-  const completedQuizzes = await checkUserCompletedQuizzes();
+  // Fetch individual quest completions from quest_completions table
+  const { data: questCompletions, error: completionsError } = await supabase
+    .from("quest_completions")
+    .select("quest_id")
+    .eq("user_id", user.id);
 
-  const isHelloWorldComplete = completedQuizzes.has("hello-world");
-  const isVariablesComplete = completedQuizzes.has("variables");
-  const isUserInputComplete = completedQuizzes.has("user-input");
-  const isConditionalsComplete = completedQuizzes.has("conditionals");
-  const isLoopsComplete = completedQuizzes.has("loops");
-  const isMathComplete = completedQuizzes.has("math");
-  const isFunctionsComplete = completedQuizzes.has("functions");
-  const isListsArraysComplete = completedQuizzes.has("lists-arrays");
-  const isDictionaryComplete = completedQuizzes.has("dictionary");
-  const isRecursionComplete = completedQuizzes.has("recursion");
+  if (completionsError) {
+    console.error(`Error fetching quest completions: ${completionsError.message}`);
+  }
+
+  // Create a Set of completed quest IDs for quick lookup
+  const completedQuestIds = new Set(questCompletions?.map((qc) => qc.quest_id) || []);
+
+  // Check individual quest completion status
+  const isHelloWorldComplete = completedQuestIds.has("hello-world");
+  const isVariablesComplete = completedQuestIds.has("variables");
+  const isUserInputComplete = completedQuestIds.has("user-input");
+  const isConditionalsComplete = completedQuestIds.has("conditionals");
+  const isLoopsComplete = completedQuestIds.has("loops");
+  const isMathComplete = completedQuestIds.has("math");
+  const isFunctionsComplete = completedQuestIds.has("functions");
+  const isListsArraysComplete = completedQuestIds.has("lists-arrays");
+  const isDictionaryComplete = completedQuestIds.has("dictionary");
+  const isRecursionComplete = completedQuestIds.has("recursion");
 
   const celestialButtonClasses =
     "btn border-2 border-cyan-400 text-cyan-400 bg-transparent hover:bg-cyan-900/50 hover:border-cyan-200 hover:text-cyan-200 shadow-lg shadow-cyan-500/50 transition duration-300 ease-in-out w-full";
@@ -66,18 +107,23 @@ export default async function DashboardPage() {
     >
       <div className="flex justify-between items-start w-full">
         <div className="flex flex-col gap-4 p-0 w-fit">
-          <h1 className="text-white text-5xl font-bold tracking-wider mb-4">Dashboard</h1>
-          <div className="flex flex-col gap-4 w-32">
-            <Link href="/" className={celestialButtonClasses}>
-              <span>Home</span>
-            </Link>
-          </div>
+          <h1 className="text-white text-6xl font-bold tracking-wider mb-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.7)] transition-all duration-300">
+            Dashboard
+          </h1>
         </div>
 
         <div className="flex items-center gap-4 p-0 w-fit">
+          <Link href="/" className={celestialButtonNoFullWidth}>
+            <span>Home</span>
+          </Link>
           <Link href="/profile" className={celestialButtonNoFullWidth}>
             <span>Profile</span>
           </Link>
+          <form action={resetQuestProgress}>
+            <button type="submit" className={celestialButtonNoFullWidth}>
+              <span>Reset Quests</span>
+            </button>
+          </form>
           <form action={logout}>
             <button type="submit" className={celestialButtonNoFullWidth}>
               <span>Log out</span>
