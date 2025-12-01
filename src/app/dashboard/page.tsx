@@ -45,10 +45,10 @@ export default async function DashboardPage() {
     "btn border-2 border-cyan-400 text-cyan-400 bg-transparent hover:bg-cyan-900/50 hover:border-cyan-200 hover:text-cyan-200 shadow-lg shadow-cyan-500/50 transition duration-300 ease-in-out";
 
   const greyButtonClass =
-    "btn border-2 border-gray-400 text-gray-400 bg-transparent hover:bg-gray-900/50 hover:border-gray-200 hover:text-gray-200 shadow-lg shadow-gray-500/50 transition duration-300 ease-in-out";
+    "btn border-2 border-gray-400 text-gray-400 bg-black/50 backdrop-blur-sm hover:bg-gray-900/50 hover:border-gray-200 hover:text-gray-200 shadow-lg shadow-gray-500/50 transition duration-300 ease-in-out";
 
   const greenButtonClass =
-    "btn border-2 border-emerald-400 text-emerald-400 bg-transparent hover:bg-emerald-900/50 hover:border-emerald-200 hover:text-emerald-200 shadow-lg shadow-emerald-500/50 transition duration-300 ease-in-out";
+    "btn border-2 border-emerald-400 text-emerald-400 bg-emerald-900/60 backdrop-blur-sm hover:bg-emerald-900/50 hover:border-emerald-200 hover:text-emerald-200 shadow-lg shadow-emerald-400/70 transition duration-300 ease-in-out";
 
   // helper
   const getButtonClass = (complete: boolean) => (complete ? greenButtonClass : greyButtonClass);
