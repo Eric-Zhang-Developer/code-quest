@@ -94,6 +94,15 @@ export default function AuthPage() {
           </button>
         </form>
 
+        {/* Reset Password Button */}
+        {mode === "login" && (
+          <div className="text-center mt-2">
+            <button className="text-sm text-indigo-300 hover:text-indigo-200 transition mt-2 underline hover: cursor-pointer">
+              Forgot Password?
+            </button>
+          </div>
+        )}
+
         <section className="flex flex-col gap-4 text-center">
           <div className="mt-5">
             <p className="text-center">Or continue with</p>
