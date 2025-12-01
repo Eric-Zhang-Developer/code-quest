@@ -56,9 +56,8 @@ export default function Quiz({ quizData }: QuizProps) {
     setIsCorrect(null);
   };
 
-  // Updates database that user completed quiz, no score to keep things simple
-  // TODO: Update the insert with a upsert, and keep track of the user's most recent score on quiz
-  // Also another neat feature would be loading the quiz result instead of resetting the quiz each time
+  // Updates database that user completed quiz
+  // Inserts into quest_completions table (triggers will auto-update quests_completed count)
   const updateUserQuizProgress = async () => {
     const supabase = createClient();
 
@@ -72,13 +71,20 @@ export default function Quiz({ quizData }: QuizProps) {
       return;
     }
 
-    const { error: insertError } = await supabase.from("user_quiz_progress").insert({
-      user_id: user.id,
-      quiz_id: quizData.id,
-    });
+    // Insert into quest_completions table
+    // The unique constraint prevents duplicates, and the trigger auto-updates quests_completed count
+    const { error: insertError } = await supabase
+      .from("quest_completions")
+      .insert({
+        user_id: user.id,
+        quest_id: quizData.id,
+      });
 
     if (insertError) {
-      console.error(`Supabase insertion error: ${insertError}`);
+      // If it's a duplicate key error, the quest was already completed - that's okay
+      if (insertError.code !== "23505") {
+        console.error(`Error inserting quest completion: ${insertError.message}`);
+      }
     }
   };
 

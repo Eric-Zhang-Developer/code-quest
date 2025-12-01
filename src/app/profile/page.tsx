@@ -24,7 +24,7 @@ export default async function ProfilePage() {
   // Fetch user profile from database
   const { data: profile } = await supabase
     .from('profiles')
-    .select('class')
+    .select('class, quests_completed')
     .eq('id', user.id)
     .maybeSingle(); // Use maybeSingle() instead of single() to handle case where profile doesn't exist
 
@@ -48,6 +48,11 @@ export default async function ProfilePage() {
         day: 'numeric' 
       })
     : 'Unknown';
+
+  // Calculate Python progress based on quest completion
+  const totalQuests = 10;
+  const completedQuests = profile?.quests_completed ?? 0;
+  const pythonProgress = Math.round((completedQuests / totalQuests) * 100);
 
   return (
     <main className="relative min-h-dvh p-8">
@@ -143,7 +148,7 @@ export default async function ProfilePage() {
                   Python
                 </span>
                 <span className="text-base" style={{ color: "#E0E0E0" }}>
-                  85%
+                  {pythonProgress}%
                 </span>
               </div>
               <div
@@ -153,7 +158,7 @@ export default async function ProfilePage() {
                 <div
                   className="h-full rounded-full"
                   style={{
-                    width: "85%",
+                    width: `${pythonProgress}%`,
                     background: "linear-gradient(to right, #be9661, #a7e4e7)",
                   }}
                 />
@@ -167,7 +172,7 @@ export default async function ProfilePage() {
                   Java
                 </span>
                 <span className="text-base" style={{ color: "#E0E0E0" }}>
-                  72%
+                  0%
                 </span>
               </div>
               <div
@@ -177,7 +182,7 @@ export default async function ProfilePage() {
                 <div
                   className="h-full rounded-full"
                   style={{
-                    width: "72%",
+                    width: "0%",
                     background: "linear-gradient(to right, #a7e4e7, #be9661)",
                   }}
                 />
@@ -191,7 +196,7 @@ export default async function ProfilePage() {
                   C++
                 </span>
                 <span className="text-base" style={{ color: "#E0E0E0" }}>
-                  68%
+                  0%
                 </span>
               </div>
               <div
@@ -201,7 +206,7 @@ export default async function ProfilePage() {
                 <div
                   className="h-full rounded-full"
                   style={{
-                    width: "68%",
+                    width: "0%",
                     background: "linear-gradient(135deg, #be9661, #a7e4e7, #be9661)",
                   }}
                 />
@@ -284,7 +289,7 @@ export default async function ProfilePage() {
                   Quests
                 </span>
                 <span className="text-2xl font-bold" style={{ color: "#be9661" }}>
-                  0/8
+                  {profile?.quests_completed ?? 0}/10
                 </span>
               </div>
             </div>
