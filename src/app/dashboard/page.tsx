@@ -51,23 +51,20 @@ export default async function DashboardPage() {
     "btn border-2 border-emerald-400 text-emerald-400 bg-transparent hover:bg-emerald-900/50 hover:border-emerald-200 hover:text-emerald-200 shadow-lg shadow-emerald-500/50 transition duration-300 ease-in-out";
 
   // helper
-  const getButtonClass = (complete: boolean) =>
-    complete ? greenButtonClass : greyButtonClass;
+  const getButtonClass = (complete: boolean) => (complete ? greenButtonClass : greyButtonClass);
 
   return (
     <main
       className={`relative min-h-dvh p-8 text-white ${cinzel.className}`}
       style={{
-        backgroundImage: "url('/dashboard.png')",
+        backgroundImage: "url('/dashboard.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
       <div className="flex justify-between items-start w-full">
         <div className="flex flex-col gap-4 p-0 w-fit">
-          <h1 className="text-white text-5xl font-bold tracking-wider mb-4">
-            Dashboard
-          </h1>
+          <h1 className="text-white text-5xl font-bold tracking-wider mb-4">Dashboard</h1>
           <div className="flex flex-col gap-4 w-32">
             <Link href="/" className={celestialButtonClasses}>
               <span>Home</span>
