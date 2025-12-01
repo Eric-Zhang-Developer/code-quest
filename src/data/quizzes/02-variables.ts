@@ -1,9 +1,8 @@
 import { QuizData } from "@/lib/types/types";
 
-
 export const variablesQuiz: QuizData = {
   title: "The Artisan's Toolkit - Mastering Variable Vaults",
-  id: "variables-quest",
+  id: "variables",
   questions: [
     {
       questionText: "What is the main purpose of a variable in programming?",
