@@ -3,6 +3,7 @@ import Link from "next/link";
 import { createClient as createServerClient } from "../../lib/supabase/server";
 import { Cinzel } from "next/font/google";
 import checkUserCompletedQuizzes from "@/lib/checkUserCompletedQuizzes";
+import { ArrowLeft, ArrowDown, ArrowRight } from "lucide-react";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -86,43 +87,59 @@ export default async function DashboardPage() {
 
       {/* Tutorials */}
       <div className="absolute bottom-16 left-1/2 -translate-x-1/2">
-        <div className="flex flex-col gap-6 w-64 text-center">
+        <div className="grid grid-cols-[1fr_auto_1fr] gap-4 items-center w-[500px]">
           <Link href="tutorial-hello-world" className={getButtonClass(isHelloWorldComplete)}>
             Hello World
           </Link>
-
+          <ArrowRight className="text-gray-400" size={24} />
           <Link href="tutorial-variables" className={getButtonClass(isVariablesComplete)}>
             Variables
           </Link>
 
-          <Link href="tutorial-user-input" className={getButtonClass(isUserInputComplete)}>
-            User Input
-          </Link>
+          <div className="col-span-3 flex justify-end pr-12">
+            <ArrowDown className="text-gray-400" size={24} />
+          </div>
 
           <Link href="tutorial-conditionals" className={getButtonClass(isConditionalsComplete)}>
             Conditionals
           </Link>
+          <ArrowLeft className="text-gray-400" size={24} />
+          <Link href="tutorial-user-input" className={getButtonClass(isUserInputComplete)}>
+            User Input
+          </Link>
+
+          <div className="col-span-3 flex justify-start pl-12">
+            <ArrowDown className="text-gray-400" size={24} />
+          </div>
 
           <Link href="tutorial-loops" className={getButtonClass(isLoopsComplete)}>
             Loops
           </Link>
-
+          <ArrowRight className="text-gray-400" size={24} />
           <Link href="tutorial-math" className={getButtonClass(isMathComplete)}>
             Math
           </Link>
 
-          <Link href="tutorial-functions" className={getButtonClass(isFunctionsComplete)}>
-            Functions
-          </Link>
+          <div className="col-span-3 flex justify-end pr-12">
+            <ArrowDown className="text-gray-400" size={24} />
+          </div>
 
           <Link href="tutorial-lists-arrays" className={getButtonClass(isListsArraysComplete)}>
             Lists & Arrays
           </Link>
+          <ArrowLeft className="text-gray-400" size={24} />
+          <Link href="tutorial-functions" className={getButtonClass(isFunctionsComplete)}>
+            Functions
+          </Link>
+
+          <div className="col-span-3 flex justify-start pl-12">
+            <ArrowDown className="text-gray-400" size={24} />
+          </div>
 
           <Link href="tutorial-dictionary" className={getButtonClass(isDictionaryComplete)}>
             Dictionary
           </Link>
-
+          <ArrowRight className="text-gray-400" size={24} />
           <Link href="tutorial-recursion" className={getButtonClass(isRecursionComplete)}>
             Recursion
           </Link>
