@@ -79,10 +79,9 @@ describe("Dashboard Page Tests", () => {
   it("should show Green button for Hello World if completed", async () => {
     // Override the mock for THIS test to simulate completion
     mockEq.mockResolvedValue({
-      data: [{ quiz_id: "hello-world" }],
+      data: [{ quest_id: "hello-world" }],
       error: null,
     });
-
     const page = await DashboardPage();
     render(page);
 
