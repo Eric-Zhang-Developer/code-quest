@@ -19,11 +19,9 @@
 
 A gamified, fantasy-themed web application that teaches programming fundamentals through interactive quests, embedded videos, and quizzes.
 
-[![Play Now!](https://img.shields.io/badge/-Start%20Your%20Journey!-6366f1?style=for-the-badge)](https://intro-swe-term-project.vercel.app/)
-
-## Overview
-
 **CodeQuest** transforms learning to code into an epic adventure. Users embark on a journey through 10 progressive programming quests, each presented as an ancient scroll filled with knowledge. The platform uses fantasy RPG theming - spells, incantations, oracles, and sorcery - to make programming concepts engaging and memorable for beginners.
+
+[![Play Now!](https://img.shields.io/badge/-Start%20Your%20Journey!-6366f1?style=for-the-badge)](https://intro-swe-term-project.vercel.app/)
 
 ## How It Works
 
