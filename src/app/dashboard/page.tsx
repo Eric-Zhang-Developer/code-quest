@@ -80,9 +80,6 @@ export default async function DashboardPage() {
   const isDictionaryComplete = completedQuestIds.has("dictionary");
   const isRecursionComplete = completedQuestIds.has("recursion");
 
-  const celestialButtonClasses =
-    "btn border-2 border-cyan-400 text-cyan-400 bg-transparent hover:bg-cyan-900/50 hover:border-cyan-200 hover:text-cyan-200 shadow-lg shadow-cyan-500/50 transition duration-300 ease-in-out w-full";
-
   const celestialButtonNoFullWidth =
     "btn border-2 border-cyan-400 text-cyan-400 bg-transparent hover:bg-cyan-900/50 hover:border-cyan-200 hover:text-cyan-200 shadow-lg shadow-cyan-500/50 transition duration-300 ease-in-out";
 
