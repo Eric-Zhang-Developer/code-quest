@@ -73,12 +73,10 @@ export default function Quiz({ quizData }: QuizProps) {
 
     // Insert into quest_completions table
     // The unique constraint prevents duplicates, and the trigger auto-updates quests_completed count
-    const { error: insertError } = await supabase
-      .from("quest_completions")
-      .insert({
-        user_id: user.id,
-        quest_id: quizData.id,
-      });
+    const { error: insertError } = await supabase.from("quest_completions").insert({
+      user_id: user.id,
+      quest_id: quizData.id,
+    });
 
     if (insertError) {
       // If it's a duplicate key error, the quest was already completed - that's okay

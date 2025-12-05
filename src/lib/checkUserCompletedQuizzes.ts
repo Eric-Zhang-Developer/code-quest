@@ -12,8 +12,8 @@ export default async function checkUserCompletedQuizzes() {
   }
 
   const { data: quizData, error: selectError } = await supabase
-    .from("user_quiz_progress")
-    .select("quiz_id")
+    .from("quest_completions")
+    .select("quest_id")
     .eq("user_id", user.id);
 
   if (selectError) {
@@ -21,5 +21,5 @@ export default async function checkUserCompletedQuizzes() {
     return new Set();
   }
 
-  return new Set(quizData.map((row) => row.quiz_id));
+  return new Set(quizData.map((row) => row.quest_id));
 }
