@@ -4,6 +4,7 @@ import Link from "next/link";
 import { createClient as createServerClient } from "../../lib/supabase/server";
 import { Cinzel } from "next/font/google";
 import { ArrowBigLeft, ArrowBigDown, ArrowBigRight } from "lucide-react";
+import checkUserCompletedQuizzes from "@/lib/checkUserCompletedQuizzes";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -30,13 +31,21 @@ async function resetQuestProgress() {
 
   // Delete all quest completions for this user
   // The trigger will automatically update quests_completed count to 0
-  const { error: deleteError } = await supabase
+  const { error: deleteError1 } = await supabase
     .from("quest_completions")
     .delete()
     .eq("user_id", user.id);
 
-  if (deleteError) {
-    console.error("Error deleting quest completions:", deleteError);
+  const { error: deleteError2 } = await supabase
+    .from("user_quiz_progress")
+    .delete()
+    .eq("user_id", user.id);
+
+  if (deleteError1) {
+    console.error("Error deleting quest completions:", deleteError1);
+  }
+  if (deleteError2) {
+    console.error("Error deleting quest completions:", deleteError2);
   }
 
   // Revalidate the dashboard and profile pages to refresh data
@@ -55,18 +64,7 @@ export default async function DashboardPage() {
 
   if (!user) redirect("/login");
 
-  // Fetch individual quest completions from quest_completions table
-  const { data: questCompletions, error: completionsError } = await supabase
-    .from("quest_completions")
-    .select("quest_id")
-    .eq("user_id", user.id);
-
-  if (completionsError) {
-    console.error(`Error fetching quest completions: ${completionsError.message}`);
-  }
-
-  // Create a Set of completed quest IDs for quick lookup
-  const completedQuestIds = new Set(questCompletions?.map((qc) => qc.quest_id) || []);
+  const completedQuestIds = await checkUserCompletedQuizzes();
 
   // Check individual quest completion status
   const isHelloWorldComplete = completedQuestIds.has("hello-world");
@@ -79,9 +77,6 @@ export default async function DashboardPage() {
   const isListsArraysComplete = completedQuestIds.has("lists-arrays");
   const isDictionaryComplete = completedQuestIds.has("dictionary");
   const isRecursionComplete = completedQuestIds.has("recursion");
-
-  const celestialButtonClasses =
-    "btn border-2 border-cyan-400 text-cyan-400 bg-transparent hover:bg-cyan-900/50 hover:border-cyan-200 hover:text-cyan-200 shadow-lg shadow-cyan-500/50 transition duration-300 ease-in-out w-full";
 
   const celestialButtonNoFullWidth =
     "btn border-2 border-cyan-400 text-cyan-400 bg-transparent hover:bg-cyan-900/50 hover:border-cyan-200 hover:text-cyan-200 shadow-lg shadow-cyan-500/50 transition duration-300 ease-in-out";
